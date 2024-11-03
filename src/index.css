@@ -1,0 +1,209 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply antialiased;
+  }
+}
+
+@layer utilities {
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .stagger-1 { transition-delay: 100ms; }
+  .stagger-2 { transition-delay: 200ms; }
+  .stagger-3 { transition-delay: 300ms; }
+  .stagger-4 { transition-delay: 400ms; }
+
+  .glass-effect {
+    @apply bg-white/[0.02] backdrop-blur-md border border-white/[0.05] shadow-[0_8px_32px_0_rgba(0,0,0,0.36)];
+  }
+
+  .neon-glow {
+    box-shadow: 0 0 5px theme('colors.blue.400/30'),
+                0 0 15px theme('colors.blue.400/20'),
+                0 0 30px theme('colors.blue.400/10');
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  .neon-glow-strong {
+    box-shadow: 0 0 5px theme('colors.blue.400'),
+                0 0 15px theme('colors.blue.400'),
+                0 0 30px theme('colors.blue.400/30'),
+                0 0 50px theme('colors.blue.400/20');
+    animation: glow-strong 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 5px theme('colors.blue.400/30'),
+                  0 0 15px theme('colors.blue.400/20'),
+                  0 0 30px theme('colors.blue.400/10');
+    }
+    to {
+      box-shadow: 0 0 10px theme('colors.blue.400/40'),
+                  0 0 20px theme('colors.blue.400/30'),
+                  0 0 40px theme('colors.blue.400/20');
+    }
+  }
+
+  @keyframes glow-strong {
+    from {
+      box-shadow: 0 0 5px theme('colors.blue.400'),
+                  0 0 15px theme('colors.blue.400'),
+                  0 0 30px theme('colors.blue.400/30'),
+                  0 0 50px theme('colors.blue.400/20');
+    }
+    to {
+      box-shadow: 0 0 10px theme('colors.blue.400'),
+                  0 0 20px theme('colors.blue.400'),
+                  0 0 40px theme('colors.blue.400/40'),
+                  0 0 60px theme('colors.blue.400/30');
+    }
+  }
+
+  .hover-card {
+    @apply transition-all duration-300 hover:translate-y-[-4px] hover:shadow-lg;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 10px currentColor;
+    animation: text-glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes text-glow {
+    from {
+      text-shadow: 0 0 10px currentColor;
+    }
+    to {
+      text-shadow: 0 0 20px currentColor;
+    }
+  }
+
+  .gradient-border {
+    position: relative;
+    background: linear-gradient(to right, #1a1f2e, #0f1728);
+    animation: border-glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes border-glow {
+    from {
+      box-shadow: 0 0 20px theme('colors.blue.500/20');
+    }
+    to {
+      box-shadow: 0 0 30px theme('colors.blue.500/30');
+    }
+  }
+
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    background: linear-gradient(to right, theme('colors.blue.500'), theme('colors.purple.500'));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    animation: border-flow 4s linear infinite;
+  }
+
+  @keyframes border-flow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+
+  @keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .animate-gradient {
+    background-size: 200% auto;
+    animation: gradient 4s linear infinite;
+  }
+
+  .animate-gradient-reverse {
+    background-size: 200% auto;
+    animation: gradient 4s linear infinite reverse;
+  }
+
+  .bg-grid-animate {
+    background-size: 50px 50px;
+    background-image: 
+      linear-gradient(to right, theme('colors.white/[0.03]') 1px, transparent 1px),
+      linear-gradient(to bottom, theme('colors.white/[0.03]') 1px, transparent 1px);
+    animation: grid 20s linear infinite;
+  }
+
+  @keyframes grid {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(50px); }
+  }
+
+  .animate-bounce-slow {
+    animation: bounce 3s infinite;
+  }
+
+  .animate-bounce-slower {
+    animation: bounce 4s infinite;
+    animation-delay: 1s;
+  }
+
+  .hover-scale {
+    transition: transform 0.3s ease;
+  }
+
+  .hover-scale:hover {
+    transform: scale(1.05);
+  }
+
+  .pulse-ring {
+    position: relative;
+  }
+
+  .pulse-ring::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: inherit;
+    border: 2px solid theme('colors.blue.400/30');
+    animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+  }
+
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(0.95);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.2);
+      opacity: 0;
+    }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+}
